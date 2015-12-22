@@ -15,5 +15,15 @@
   <%= @session.twitter_handle %>
 </p>
 
+<p>
+  <strong>Time slot:</strong>
+  <%= @session.time_slot %>
+</p>
+
+<p>
+  <strong>Meeting space:</strong>
+  <%= @session.meeting_space %>
+</p>
+
 <%= link_to 'Edit', edit_session_path(@session) %> |
 <%= link_to 'Back', sessions_path %>

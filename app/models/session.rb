@@ -1,4 +1,4 @@
 class Session < ActiveRecord::Base
-  references :time_slot, :meeting_space
-
+  belongs_to :time_slot
+  belongs_to :meeting_space
 end

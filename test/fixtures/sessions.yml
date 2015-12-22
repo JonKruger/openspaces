@@ -4,8 +4,12 @@ one:
   title: MyString
   owner: MyString
   twitter_handle: MyString
+  time_slot_id: 
+  meeting_space_id: 
 
 two:
   title: MyString
   owner: MyString
   twitter_handle: MyString
+  time_slot_id: 
+  meeting_space_id: 

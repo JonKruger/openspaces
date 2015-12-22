@@ -13,21 +13,19 @@
 
   <div class="field">
     <%= f.label :title %><br>
-    <%= f.text_field :title %>
+    <%= f.text_field :title, :required => true %>
   </div>
   <div class="field">
     <%= f.label :owner %><br>
-    <%= f.text_field :owner %>
+    <%= f.text_field :owner , :required => true%>
   </div>
   <div class="field">
     <%= f.label :twitter_handle %><br>
     <%= f.text_field :twitter_handle %>
   </div>
-  <div> class="field">
-    <%= f.label :timeslot %>
-    <%= f.select :timeslot, :options_for_select => TimeSlot.all.map { |ts| [ts.start_time.to_s + " - " + ts.end_time.to_s, ts.id] } %>
 
-  </div>
+  <%= f.hidden_field :time_slot_id, :value => @session.time_slot_id %>
+  <%= f.hidden_field :meeting_space_id, :value => @session.meeting_space_id %>
   <div class="actions">
     <%= f.submit %>
   </div>

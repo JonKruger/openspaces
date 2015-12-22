@@ -5,6 +5,8 @@ class SessionsController < ApplicationController
   # GET /sessions.json
   def index
     @sessions = Session.all
+    @time_slots = TimeSlot.all.order :start_time
+    @meeting_spaces = MeetingSpace.all.order :name
   end
 
   # GET /sessions/1
@@ -15,10 +17,21 @@ class SessionsController < ApplicationController
   # GET /sessions/new
   def new
     @session = Session.new
+
+    if (params[:time_slot_id])
+      time_slot = TimeSlot.find_by_id(params[:time_slot_id])
+      @session.time_slot_id = time_slot.id if time_slot
+    end
+
+    if (params[:meeting_space_id])
+      meeting_space = MeetingSpace.find_by_id params[:meeting_space_id]
+      @session.meeting_space_id = meeting_space.id if meeting_space
+    end
   end
 
   # GET /sessions/1/edit
   def edit
+
   end
 
   # POST /sessions
@@ -28,7 +41,7 @@ class SessionsController < ApplicationController
 
     respond_to do |format|
       if @session.save
-        format.html { redirect_to @session, notice: 'Session was successfully created.' }
+        format.html { redirect_to sessions_url, notice: 'Session was successfully created.' }
         format.json { render :show, status: :created, location: @session }
       else
         format.html { render :new }
@@ -69,6 +82,6 @@ class SessionsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def session_params
-      params.require(:session).permit(:title, :owner, :twitter_handle)
+      params.require(:session).permit(:title, :owner, :twitter_handle, :time_slot_id, :meeting_space_id)
     end
 end

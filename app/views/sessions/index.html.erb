@@ -1,3 +1,90 @@
+<html>
+<head>
+	<link rel="stylesheet" type="text/css" href="http://www.codemash.org/wp-content/themes/codemash/style.css?ver=2.2.2" />
+	<style type="text/css">
+		thead td
+		{
+			font-weight: bold;
+			text-align: center;
+		}
+		table 
+		{ 
+			border-spacing: 5px;
+			border-collapse: separate;
+    }
+
+		td.taken 
+		{
+      border-left: 4px solid #73AD21;
+    }
+
+		td.available
+		{
+      border-left: 4px solid YELLOW;
+    }
+
+    td
+    {
+			padding: 8px 12px;
+			background: white;
+		}
+		
+		tr
+		{
+			margin: 20px 20px;
+		}
+		
+		.title
+		{
+			padding: 5px;
+		}
+		
+		.owner
+		{
+			padding: 5px;
+			text-align: right;
+    }	
+
+    .header
+    {
+      font-weight: bold;
+      text-align: center;
+    }
+	</style>
+</head>
+<body>
+
+<table>
+	<thead>
+    <tr>
+      <td>Meeting Space</td>
+      <% @time_slots.each do |ts| %>
+        <td><%= ts.to_s %></td>
+      <% end %>
+		</tr>
+	</thead>	
+  <tbody>	
+    <% @meeting_spaces.each do |ms| %>
+      <tr>	
+        <td class="header"><%= ms.name %></td>
+        <% @time_slots.each do |ts| %>
+          <td class="<%= existing_session(ts.id,ms.id) ? 'taken' : 'available' %>">
+            <% if existing_session(ts.id,ms.id) %>
+            <div class="title"><%= existing_session_title(ts.id,ms.id) %></div>
+            <div class="owner"><a href="http://twitter.com/"><%= existing_session_owner(ts.id,ms.id) %></a></div>	
+          <% else %>
+            <a href="/sessions/new?time_slot_id=<%= ts.id %>&meeting_space_id=<%= ms.id %>">Create</a>
+            <% end %>
+      </td>
+        <% end %>
+      </tr>
+    <% end %>
+	</tbody>
+</table>
+
+
+-----------------------
+
 <p id="notice"><%= notice %></p>
 
 <h1>Listing Sessions</h1>
@@ -8,6 +95,8 @@
       <th>Title</th>
       <th>Owner</th>
       <th>Twitter handle</th>
+      <th>Time slot</th>
+      <th>Meeting space</th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -18,6 +107,8 @@
         <td><%= session.title %></td>
         <td><%= session.owner %></td>
         <td><%= session.twitter_handle %></td>
+        <td><%= session.time_slot %></td>
+        <td><%= session.meeting_space %></td>
         <td><%= link_to 'Show', session %></td>
         <td><%= link_to 'Edit', edit_session_path(session) %></td>
         <td><%= link_to 'Destroy', session, method: :delete, data: { confirm: 'Are you sure?' } %></td>
@@ -29,3 +120,6 @@
 <br>
 
 <%= link_to 'New Session', new_session_path %>
+
+</body>
+</html>

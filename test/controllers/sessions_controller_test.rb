@@ -18,7 +18,7 @@ class SessionsControllerTest < ActionController::TestCase
 
   test "should create session" do
     assert_difference('Session.count') do
-      post :create, session: { owner: @session.owner, title: @session.title, twitter_handle: @session.twitter_handle }
+      post :create, session: { meeting_space_id: @session.meeting_space_id, owner: @session.owner, time_slot_id: @session.time_slot_id, title: @session.title, twitter_handle: @session.twitter_handle }
     end
 
     assert_redirected_to session_path(assigns(:session))
@@ -35,7 +35,7 @@ class SessionsControllerTest < ActionController::TestCase
   end
 
   test "should update session" do
-    patch :update, id: @session, session: { owner: @session.owner, title: @session.title, twitter_handle: @session.twitter_handle }
+    patch :update, id: @session, session: { meeting_space_id: @session.meeting_space_id, owner: @session.owner, time_slot_id: @session.time_slot_id, title: @session.title, twitter_handle: @session.twitter_handle }
     assert_redirected_to session_path(assigns(:session))
   end
 

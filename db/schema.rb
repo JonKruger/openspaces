@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151222015740) do
+ActiveRecord::Schema.define(version: 20151222023525) do
 
   create_table "meeting_spaces", force: :cascade do |t|
     t.string   "name"
@@ -24,9 +24,13 @@ ActiveRecord::Schema.define(version: 20151222015740) do
     t.string   "owner"
     t.string   "twitter_handle"
     t.integer  "time_slot_id"
-    t.datetime "created_at",     null: false
-    t.datetime "updated_at",     null: false
+    t.integer  "meeting_space_id"
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
   end
+
+  add_index "sessions", ["meeting_space_id"], name: "index_sessions_on_meeting_space_id"
+  add_index "sessions", ["time_slot_id"], name: "index_sessions_on_time_slot_id"
 
   create_table "time_slots", force: :cascade do |t|
     t.datetime "start_time"
