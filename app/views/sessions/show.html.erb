@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Title:</strong>
+  <%= @session.title %>
+</p>
+
+<p>
+  <strong>Owner:</strong>
+  <%= @session.owner %>
+</p>
+
+<p>
+  <strong>Twitter handle:</strong>
+  <%= @session.twitter_handle %>
+</p>
+
+<%= link_to 'Edit', edit_session_path(@session) %> |
+<%= link_to 'Back', sessions_path %>
