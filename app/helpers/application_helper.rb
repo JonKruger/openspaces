@@ -1,3 +1,5 @@
+require 'open-uri'
+
 module ApplicationHelper
   def existing_session(time_slot_id, meeting_space_id)
     @sessions.select {|s| s.time_slot_id == time_slot_id && s.meeting_space_id == meeting_space_id }.first 
@@ -10,11 +12,16 @@ module ApplicationHelper
 
   def existing_session_owner(time_slot_id, meeting_space_id)
     session = existing_session(time_slot_id, meeting_space_id)
-    session.owner if session
+    str= ""
+    if session
+      str << "<a href='http://twitter.com/#{URI::encode(session.twitter_handle)}' target='openspacetwitter'>" if (session && session.twitter_handle && session.twitter_handle != "")
+      str << session.owner 
+      str << "</a>" if (session && session.twitter_handle && session.twitter_handle != "")
+    end
+    str.html_safe
   end
 
-  def existing_session_twitter_handle(time_slot_id, meeting_space_id)
+  def existing_session_twitter_link(time_slot_id, meeting_space_id)
     session = existing_session(time_slot_id, meeting_space_id)
-    session.twitter_handle if session
   end
 end

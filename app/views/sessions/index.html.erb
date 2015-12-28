@@ -50,6 +50,40 @@
       font-weight: bold;
       text-align: center;
     }
+
+    @media only screen and (max-device-width: 480px) 
+    {
+      .current
+      {
+        width: 780px;
+      }
+      .not-current
+      {
+        display: none;
+      }
+
+      .inline-meeting-space
+      {
+        text-align: right;
+      }
+
+      .meeting-space-header
+      {
+        display: none;
+      }
+    }
+
+    @media only screen and (min-width: 480px)
+    {
+      .inline-meeting-space
+      {
+        display: none;
+      }
+      .prev-next-links
+      {
+        display: none;
+      }
+    }
 	</style>
 </head>
 <body>
@@ -57,23 +91,35 @@
 <table>
 	<thead>
     <tr>
-      <td>Meeting Space</td>
+      <td class="meeting-space-header">Meeting Space</td>
       <% @time_slots.each do |ts| %>
-        <td><%= ts.to_s %></td>
+        <td class="<%= ts.id == @current_time_slot.id ? 'current' : 'not-current' %>">
+          <div><%= ts.to_s %></div>
+          <div class="prev-next-links">
+            <% if @prev_time_slots[ts.id] %>
+              <a href="/sessions/?time_slot_id=<%= @prev_time_slots[ts.id] %>">Prev</a>
+            <% end %>
+            <% if @next_time_slots[ts.id] %>
+              <a href="/sessions/?time_slot_id=<%= @next_time_slots[ts.id] %>">Next</a>
+            <% end %>
+          </div>
+        </td>
       <% end %>
 		</tr>
 	</thead>	
   <tbody>	
     <% @meeting_spaces.each do |ms| %>
       <tr>	
-        <td class="header"><%= ms.name %></td>
+        <td class="header meeting-space-header"><%= ms.name %></td>
         <% @time_slots.each do |ts| %>
-          <td class="<%= existing_session(ts.id,ms.id) ? 'taken' : 'available' %>">
+          <td class="<%= existing_session(ts.id,ms.id) ? 'taken' : 'available' %> <%= ts.id == @current_time_slot.id ? 'current' : 'not-current' %>">
             <% if existing_session(ts.id,ms.id) %>
             <div class="title"><%= existing_session_title(ts.id,ms.id) %></div>
-            <div class="owner"><a href="http://twitter.com/"><%= existing_session_owner(ts.id,ms.id) %></a></div>	
+            <div class="owner"><%= existing_session_owner(ts.id,ms.id) %></div>	
+            <div class="inline-meeting-space">Meeting space <%= ms.name %></div>
           <% else %>
             <a href="/sessions/new?time_slot_id=<%= ts.id %>&meeting_space_id=<%= ms.id %>">Create</a>
+            <div class="inline-meeting-space">Meeting space <%= ms.name %></div>
             <% end %>
       </td>
         <% end %>

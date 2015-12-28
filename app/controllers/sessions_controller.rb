@@ -5,8 +5,21 @@ class SessionsController < ApplicationController
   # GET /sessions.json
   def index
     @sessions = Session.all
-    @time_slots = TimeSlot.all.order :start_time
+    @time_slots = TimeSlot.all.order(:start_time).to_a
     @meeting_spaces = MeetingSpace.all.order :name
+
+    if params[:time_slot_id]
+      @current_time_slot = @time_slots.select {|ts|ts.id == params[:time_slot_id].to_i}.first
+    else
+      @current_time_slot = @time_slots.sort {|x,y| x.start_time <=> y.start_time}.select {|ts| ts.end_time >= Time.now}.first
+    end
+
+    @prev_time_slots = {}
+    @next_time_slots = {}
+    for i in 0..@time_slots.length-1
+      @prev_time_slots[@time_slots[i].id] = (@time_slots[i-1].id if i > 0)
+      @next_time_slots[@time_slots[i].id] = (@time_slots[i+1].id if i < (@time_slots.length - 1))
+    end
   end
 
   # GET /sessions/1
