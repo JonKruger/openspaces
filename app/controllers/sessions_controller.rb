@@ -82,7 +82,7 @@ class SessionsController < ApplicationController
   def destroy
     @session.destroy
     respond_to do |format|
-      format.html { redirect_to sessions_url, notice: 'Session was successfully destroyed.' }
+      format.html { redirect_to sessions_url, notice: 'Session was successfully deleted.' }
       format.json { head :no_content }
     end
   end

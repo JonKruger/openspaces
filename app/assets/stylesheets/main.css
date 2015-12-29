@@ -57,6 +57,16 @@
       text-align: right;
     }
 
+    .page-header
+    {
+      width: 100%;
+      text-align: center;
+      font-weight: bold;
+      color: #0c84a9;
+      font-size: 20px;
+      padding-top: 10px;
+    }
+
     @media only screen and (max-device-width: 480px) 
     {
       body {
