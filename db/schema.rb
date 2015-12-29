@@ -13,6 +13,9 @@
 
 ActiveRecord::Schema.define(version: 20151222023525) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "meeting_spaces", force: :cascade do |t|
     t.string   "name"
     t.datetime "created_at", null: false
@@ -29,8 +32,8 @@ ActiveRecord::Schema.define(version: 20151222023525) do
     t.datetime "updated_at",       null: false
   end
 
-  add_index "sessions", ["meeting_space_id"], name: "index_sessions_on_meeting_space_id"
-  add_index "sessions", ["time_slot_id"], name: "index_sessions_on_time_slot_id"
+  add_index "sessions", ["meeting_space_id"], name: "index_sessions_on_meeting_space_id", using: :btree
+  add_index "sessions", ["time_slot_id"], name: "index_sessions_on_time_slot_id", using: :btree
 
   create_table "time_slots", force: :cascade do |t|
     t.datetime "start_time"
@@ -39,4 +42,6 @@ ActiveRecord::Schema.define(version: 20151222023525) do
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "sessions", "meeting_spaces"
+  add_foreign_key "sessions", "time_slots"
 end
