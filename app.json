@@ -1,0 +1,7 @@
+{
+  "name": "CodeMash open spaces",
+  "description": "CodeMash open spaces",
+  "repository": "https://github.com/jonkruger/openspaces",
+  "keywords": ["codemash", "open-spaces" ],
+  "addons": [ "heroku-postgresql" ]
+}
