@@ -95,6 +95,8 @@ class SessionsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def session_params
-      params.require(:session).permit(:title, :owner, :twitter_handle, :time_slot_id, :meeting_space_id)
+      p = params.require(:session).permit(:title, :owner, :twitter_handle, :time_slot_id, :meeting_space_id)
+      p[:twitter_handle] = p[:twitter_handle].gsub '@','' if p[:twitter_handle]
+      p
     end
 end
