@@ -59,10 +59,11 @@
 
     @media only screen and (max-device-width: 480px) 
     {
-      .current
+      table
       {
-        width: 780px;
+        width: 100%;
       }
+
       .not-current
       {
         display: none;
