@@ -59,8 +59,11 @@
 
     @media only screen and (max-device-width: 480px) 
     {
-      body
-      {
+      body {
+        font-size: 16px;
+      }
+
+      p, ol, ul, td {
         font-size: 16px;
       }
 
