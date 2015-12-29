@@ -1,6 +1,5 @@
 <h1>Editing Session</h1>
 
 <%= render 'form' %>
-
-<%= link_to 'Show', @session %> |
+<%= link_to 'Delete This Session', @session, method: :delete, data: { confirm: 'Are you sure?' } %> |
 <%= link_to 'Back', sessions_path %>

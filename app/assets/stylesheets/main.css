@@ -1,4 +1,9 @@
-		thead td
+		body
+    {
+	    background-color: #f2f2f3;
+    }
+
+    thead td
 		{
 			font-weight: bold;
 			text-align: center;
@@ -45,6 +50,11 @@
     {
       font-weight: bold;
       text-align: center;
+    }
+
+    .edit-link
+    {
+      text-align: right;
     }
 
     @media only screen and (max-device-width: 480px) 
