@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  resources :sessions
+  get 'sessions/data' => 'sessions#data', :format => 'xml'
   resources :sessions
 
   root 'sessions#index'

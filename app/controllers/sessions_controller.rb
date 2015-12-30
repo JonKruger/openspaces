@@ -87,6 +87,43 @@ class SessionsController < ApplicationController
     end
   end
 
+  def data
+    xml = ''
+    xml << '<ArrayOfPublicSessionDataModel xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schemas.datacontract.org/2004/07/CodeMash.Speakers.Web.Models">'
+
+    Session.all.each do |session|
+      xml << '<PublicSessionDataModel>'
+      xml << '<Abstract>'
+      xml << session.title.encode(:xml => :text)
+      xml << '</Abstract>'
+      xml << "<Category>Open Spaces</Category>"
+      xml << "<Id>#{session.id + 100000}</Id>"
+      xml << '<Room i:nil="true"/>'
+      xml << '<Rooms xmlns:d3p1="http://schemas.microsoft.com/2003/10/Serialization/Arrays">'
+      xml << "<d3p1:string>Open Space #{session.meeting_space.name}</d3p1:string>"
+      xml << '</Rooms>'
+      xml << "<SessionEndTime>#{session.time_slot.end_time.strftime('%FT%T')}</SessionEndTime>"
+      xml << "<SessionStartTime>#{session.time_slot.start_time.strftime('%FT%T')}</SessionStartTime>"
+      xml << "<SessionTime>#{session.time_slot.start_time.strftime('%FT%T')}</SessionTime>"
+      xml << '<SessionType>Open Space</SessionType>'
+      xml << '<Speakers>'
+      xml << '<PublicSpeakerThinDataModel>'
+      xml << '<FirstName></FirstName>'
+      xml << '<GravatarUrl></GravatarUrl>'
+      xml << "<LastName>#{session.owner.encode(:xml => :text)}</LastName>"
+      xml << '</PublicSpeakerThinDataModel>'
+      xml << '</Speakers>'
+      xml << '<Tags xmlns:d3p1="http://schemas.microsoft.com/2003/10/Serialization/Arrays"/>'
+      xml << "<Title>#{session.title.encode(:xml => :text)}</Title>"
+      xml << '</PublicSessionDataModel>'
+    end
+    xml << '</ArrayOfPublicSessionDataModel>'
+
+    respond_to do |format|
+      format.xml { render xml: xml}
+    end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_session

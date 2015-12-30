@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151222023525) do
+ActiveRecord::Schema.define(version: 20151230022354) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -21,6 +21,22 @@ ActiveRecord::Schema.define(version: 20151222023525) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
+
+  create_table "session_history", force: :cascade do |t|
+    t.integer  "session_id"
+    t.string   "title"
+    t.string   "owner"
+    t.string   "twitter_handle"
+    t.integer  "time_slot_id"
+    t.integer  "meeting_space_id"
+    t.string   "operation"
+    t.datetime "action_date"
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
+  end
+
+  add_index "session_history", ["meeting_space_id"], name: "index_session_history_on_meeting_space_id", using: :btree
+  add_index "session_history", ["time_slot_id"], name: "index_session_history_on_time_slot_id", using: :btree
 
   create_table "sessions", force: :cascade do |t|
     t.string   "title"
@@ -42,6 +58,8 @@ ActiveRecord::Schema.define(version: 20151222023525) do
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "session_history", "meeting_spaces"
+  add_foreign_key "session_history", "time_slots"
   add_foreign_key "sessions", "meeting_spaces"
   add_foreign_key "sessions", "time_slots"
 end

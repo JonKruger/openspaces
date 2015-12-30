@@ -24,4 +24,14 @@ module ApplicationHelper
   def existing_session_twitter_link(time_slot_id, meeting_space_id)
     session = existing_session(time_slot_id, meeting_space_id)
   end
+
+  def auto_refresh_interval
+    seconds = nil
+    if params['auto-refresh']
+      seconds = params['auto-refresh'].to_i
+    end
+
+    seconds = 30 if (seconds && seconds < 30)
+    return seconds * 1000 if seconds
+  end
 end
