@@ -13,15 +13,15 @@
 
   <div class="field">
     <%= f.label :title %><br>
-    <%= f.text_field :title, :required => true %>
+    <%= f.text_field :title, :required => true, :maxlength => 75, :size => 20 %>
   </div>
   <div class="field">
     <%= f.label :owner, 'Your Name' %><br>
-    <%= f.text_field :owner , :required => true%>
+    <%= f.text_field :owner , :required => true, :maxlength => 25, :size => 20 %>
   </div>
   <div class="field">
     <%= f.label :twitter_handle %><br>
-    <%= f.text_field :twitter_handle %>
+    <%= f.text_field :twitter_handle, :size => 20 %>
   </div>
 
   <%= f.hidden_field :time_slot_id, :value => @session.time_slot_id %>

@@ -15,7 +15,7 @@ module ApplicationHelper
     str= ""
     if session
       str << "<a href='http://twitter.com/#{URI::encode(session.twitter_handle)}' target='openspacetwitter'>" if (session && session.twitter_handle && session.twitter_handle != "")
-      str << session.owner 
+      str << CGI::escapeHTML(session.owner)
       str << "</a>" if (session && session.twitter_handle && session.twitter_handle != "")
     end
     str.html_safe
