@@ -34,4 +34,12 @@ module ApplicationHelper
     seconds = 30 if (seconds && seconds < 30)
     return seconds * 1000 if seconds
   end
+
+  def show_past_sessions?
+    (params['show-past-sessions'] && params['show-past-sessions'].to_i == 0) ? false : true
+  end
+
+  def is_time_slot_in_past?(time_slot)
+    time_slot.end_time < Time.now - 5.minutes
+  end
 end
