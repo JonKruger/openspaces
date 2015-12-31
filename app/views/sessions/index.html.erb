@@ -1,12 +1,11 @@
 <div class="page-header">CodeMash Open Spaces</div>
-<%= Time.parse('2016-1-8 10:00:00').to_s %>
+
 <p id="notice"><%= notice %></p>
 <table>
 	<thead>
     <tr>
       <td class="meeting-space-header">Meeting Space</td>
       <% @time_slots.each do |ts| %>
-        <%= ts.end_time.to_s%>
         <% if show_past_sessions? || !is_time_slot_in_past?(ts) %>
           <td class="<%= ts.id == @current_time_slot.id ? 'current' : 'not-current' %>">
             <div><%= ts.to_s %></div>
