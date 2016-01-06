@@ -39,6 +39,10 @@ module ApplicationHelper
     (params['show-past-sessions'] && params['show-past-sessions'].to_i == 0) ? false : true
   end
 
+  def show_create_links?
+    (params['show-create-links'] && params['show-create-links'].to_i == 0) ? false : true
+  end
+
   def is_time_slot_in_past?(time_slot)
     time_slot.end_time < Time.now - 5.minutes
   end

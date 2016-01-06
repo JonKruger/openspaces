@@ -34,7 +34,9 @@
                 <div class="owner"><%= existing_session_owner(ts.id,ms.id) %></div>	
                 <div class="inline-meeting-space">Meeting space <%= ms.name %></div>
               <% else %>
-                <div class="create-link"><a href="/sessions/new?time_slot_id=<%= ts.id %>&meeting_space_id=<%= ms.id %>">Create</a></div>
+                <% if show_create_links? %>
+                  <div class="create-link"><a href="/sessions/new?time_slot_id=<%= ts.id %>&meeting_space_id=<%= ms.id %>">Create</a></div>
+                <% end %>
                 <div class="inline-meeting-space">Meeting space <%= ms.name %></div>
               <% end %>
             </td>
