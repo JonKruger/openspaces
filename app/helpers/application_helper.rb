@@ -44,6 +44,6 @@ module ApplicationHelper
   end
 
   def is_time_slot_in_past?(time_slot)
-    time_slot.end_time < Time.now - 5.minutes
+    time_slot.end_time < Time.now - 15.minutes
   end
 end
