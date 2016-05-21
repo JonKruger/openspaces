@@ -11,7 +11,9 @@ class SessionsController < ApplicationController
     if params[:time_slot_id]
       @current_time_slot = @time_slots.select {|ts|ts.id == params[:time_slot_id].to_i}.first
     else
-      @current_time_slot = @time_slots.sort {|x,y| x.start_time <=> y.start_time}.select {|ts| ts.end_time >= Time.now}.first
+      sorted_time_slots = @time_slots.sort {|x,y| x.start_time <=> y.start_time}
+      @current_time_slot = sorted_time_slots.select {|ts| ts.end_time >= Time.now}.first
+      @current_time_slot = sorted_time_slots.first unless @current_time_slot
     end
 
     @prev_time_slots = {}
