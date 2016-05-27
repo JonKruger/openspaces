@@ -1,5 +1,7 @@
 <h1>Edit Session</h1>
 
 <%= render 'form' %>
-<%= link_to 'Delete This Session', @session, method: :delete, data: { confirm: 'Are you sure?' } %> |
+<% unless Settings.readonly %>
+  <%= link_to 'Delete This Session', @session, method: :delete, data: { confirm: 'Are you sure?' }%> |
+<% end %>
 <%= link_to 'Back', sessions_path %>

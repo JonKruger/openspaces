@@ -27,6 +27,6 @@
   <%= f.hidden_field :time_slot_id, :value => @session.time_slot_id %>
   <%= f.hidden_field :meeting_space_id, :value => @session.meeting_space_id %>
   <div class="actions">
-    <%= f.submit %>
+  <%= f.submit unless Settings.readonly %>
   </div>
 <% end %>

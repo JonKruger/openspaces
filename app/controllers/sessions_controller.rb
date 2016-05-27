@@ -52,6 +52,8 @@ class SessionsController < ApplicationController
   # POST /sessions
   # POST /sessions.json
   def create
+    return if Settings.readonly 
+
     @session = Session.new(session_params)
 
     respond_to do |format|
@@ -68,6 +70,8 @@ class SessionsController < ApplicationController
   # PATCH/PUT /sessions/1
   # PATCH/PUT /sessions/1.json
   def update
+    return if Settings.readonly 
+
     respond_to do |format|
       if @session.update(session_params)
         format.html { redirect_to sessions_url, notice: 'Session was successfully updated.' }
@@ -82,6 +86,8 @@ class SessionsController < ApplicationController
   # DELETE /sessions/1
   # DELETE /sessions/1.json
   def destroy
+    return if Settings.readonly 
+
     @session.destroy
     respond_to do |format|
       format.html { redirect_to sessions_url, notice: 'Session was successfully deleted.' }
