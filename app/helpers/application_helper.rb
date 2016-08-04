@@ -40,7 +40,7 @@ module ApplicationHelper
   end
 
   def show_create_links?
-    (params['show-create-links'] && params['show-create-links'].to_i == 0) ? false : true
+    (params['show-create-links'] && params['show-create-links'].to_i == 0) || Settings.readonly ? false : true
   end
 
   def is_time_slot_in_past?(time_slot)
