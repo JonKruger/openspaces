@@ -47,3 +47,4 @@ group :development do
 end
 
 gem 'config'
+gem 'rails_12factor'
