@@ -5,7 +5,7 @@ class SessionsController < ApplicationController
   # GET /sessions.json
   def index
     @sessions = Session.all
-    @time_slots = TimeSlot.all.order(:start_time).to_a
+    @time_slots = TimeSlot.select { |ts| ts.enabled }.sort { |x,y| x.start_time <=> y.start_time }.to_a
     @meeting_spaces = MeetingSpace.all.order :name
 
     if params[:time_slot_id]
