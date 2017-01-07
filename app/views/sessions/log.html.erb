@@ -1,0 +1,28 @@
+<table>
+	<thead>
+		<th>Title</th>
+		<th>Owner</th>
+		<th>Twitter</th>
+		<th>Time Slot</th>
+		<th>Meeting Space</th>
+		<th>Create Date</th>
+		<th>Delete?</th>
+	</thead>
+	<tbody>
+		<% @sessions.each do |s| %>
+		  <tr>
+				<td><%= link_to existing_session_title(s.time_slot_id,s.meeting_space_id), edit_session_path(existing_session(s.time_slot_id,s.meeting_space_id))  %></td>
+				<td><%= existing_session_owner(s.time_slot_id,s.meeting_space_id) %></td>
+				<td><%= existing_session_twitter(s.time_slot_id,s.meeting_space_id) %></td>
+				<td><%= s.time_slot.to_s %></td>
+				<td><%= s.meeting_space&.name %></td>
+				<td><%= s.created_at %></td>
+				<td>
+				<% unless Settings.readonly %>
+				  <%= link_to 'Delete', s, method: :delete, data: { confirm: 'Are you sure?' }%>
+				<% end %>
+				</td>
+			</tr>
+		<% end %>
+	</tbody>
+</table>

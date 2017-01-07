@@ -132,6 +132,10 @@ class SessionsController < ApplicationController
     end
   end
 
+  def log
+    @sessions = Session.enabled.sort { |x,y| y.created_at <=> x.created_at }
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_session

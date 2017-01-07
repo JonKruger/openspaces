@@ -21,6 +21,17 @@ module ApplicationHelper
     str.html_safe
   end
 
+  def existing_session_twitter(time_slot_id, meeting_space_id)
+    session = existing_session(time_slot_id, meeting_space_id)
+    str= ""
+    if session
+      str << "<a href='http://twitter.com/#{URI::encode(session.twitter_handle)}' target='openspacetwitter'>" if (session && session.twitter_handle && session.twitter_handle != "")
+      str << CGI::escapeHTML(session.twitter_handle)
+      str << "</a>" if (session && session.twitter_handle && session.twitter_handle != "")
+    end
+    str.html_safe
+  end
+
   def existing_session_twitter_link(time_slot_id, meeting_space_id)
     session = existing_session(time_slot_id, meeting_space_id)
   end
