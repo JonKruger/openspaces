@@ -1,7 +1,13 @@
 Rails.application.routes.draw do
+    get 'sessions/:id' => 'sessions#edit', :format => 'json'
+    get 'sessions' => 'sessions#index', :format => 'json'
+    post 'sessions/save' => 'sessions#save', :format => 'json'
   get 'sessions/data' => 'sessions#data', :format => 'xml'
   get 'sessions/log' => 'sessions#log'
-  resources :sessions
+
+  post 'test/posttest' => 'test#posttest'#, :format => 'json'
+  post 'test/posttest2' => 'test#posttest2'#, :format => 'json'
+  #resources :sessions
 
   root 'sessions#index'
   # The priority is based upon order of creation: first created -> highest priority.
