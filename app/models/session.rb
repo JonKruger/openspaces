@@ -13,4 +13,16 @@ class Session < ActiveRecord::Base
   		errors.add(:time_slot, "Please select a valid time slot")
   	end
   end
+
+  def twitter_url
+  	"http://twitter.com/#{URI::encode(twitter_handle)}" if (twitter_handle && twitter_handle != "")
+  end
+
+  def owner=(value)
+  	write_attribute(:owner, CGI::escapeHTML(value).html_safe)
+  end
+
+  def twitter_handle=(value)
+  	write_attribute(:twitter_handle, value.nil? ? nil : value.gsub(/[^A-Za-z0-9_]/,''))
+  end
 end

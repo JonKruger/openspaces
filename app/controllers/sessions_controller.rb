@@ -1,5 +1,7 @@
 class SessionsController < ApplicationController
+  before_action :set_default_response_format
   before_action :set_session, only: [:show, :edit, :update, :destroy]
+  skip_before_filter :verify_authenticity_token  
 
   # GET /sessions
   # GET /sessions.json
@@ -22,6 +24,38 @@ class SessionsController < ApplicationController
       @prev_time_slots[@time_slots[i].id] = (@time_slots[i-1].id if i > 0)
       @next_time_slots[@time_slots[i].id] = (@time_slots[i+1].id if i < (@time_slots.length - 1))
     end
+    result = {
+      :sessions => @sessions.map { |s| s.as_json.merge({:twitter_url => s.twitter_url}) },
+      :time_slots => @time_slots,
+      :meeting_spaces => @meeting_spaces,
+      :current_time_slot => @current_time_slot,
+      :prev_time_slots => @prev_time_slots,
+      :next_time_slots => @next_time_slots
+    }
+    render json: result
+  end
+  
+  def edit
+    @session = Session.find(params[:id])
+    render json: (@session ? @session.as_json.merge({:twitter_url => @session.twitter_url}) : nil)
+  end
+
+  def save
+    if Settings.readonly 
+      result = {success: false, errors: "Sessions cannot be updated at this time"}
+    else
+      data = session_params
+      puts "*************** data is #{data}"
+      session = Session.find_by_id(data[:id]) || Session.new
+      session.update_attributes(data)
+
+      if session.save
+        result = {success: true}
+      else
+        result = {success: false, errors: session.errors}
+      end
+    end
+    render :json => result
   end
 
   # GET /sessions/1
@@ -44,10 +78,6 @@ class SessionsController < ApplicationController
     end
   end
 
-  # GET /sessions/1/edit
-  def edit
-
-  end
 
   # POST /sessions
   # POST /sessions.json
@@ -144,8 +174,13 @@ class SessionsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def session_params
-      p = params.require(:session).permit(:title, :owner, :twitter_handle, :time_slot_id, :meeting_space_id)
+      puts ">>>> I got #{params}"
+      p = params.permit(:id, :title, :owner, :twitter_handle, :time_slot_id, :meeting_space_id)
       p[:twitter_handle] = p[:twitter_handle].gsub '@','' if p[:twitter_handle]
       p
+    end
+
+    def set_default_response_format
+      request.format = :json
     end
 end
