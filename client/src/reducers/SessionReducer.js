@@ -12,10 +12,9 @@ export default function SessionReducer(state = initialState.sessions, action) {
   // let newState;
   switch (action.type) {
     case LOAD_SESSIONS:
-      // return fetch("http://localhost:3000/sessions", {
-      //   method: 'get'
-      // });
-      return [3,4,5,6];
+    debugger;
+      return action.data.sessions.map(d => d.title);
+
     // case SAVE_FUEL_SAVINGS:
     //   // For this example, just simulating a save by changing date modified.
     //   // In a real app using Redux, you might use redux-thunk and handle the async call in fuelSavingsActions.js
