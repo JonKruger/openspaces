@@ -1,7 +1,6 @@
 import {LOAD_SESSIONS} from '../constants/ActionTypes';
-// import objectAssign from 'object-assign';
+import objectAssign from 'object-assign';
 import initialState from './InitialState';
-// import fetch from 'fetch';
 
 // IMPORTANT: Note that with Redux, state should NEVER be changed.
 // State is considered immutable. Instead,
@@ -9,11 +8,11 @@ import initialState from './InitialState';
 // Note that I'm using Object.assign to create a copy of current state
 // and update values on the copy.
 export default function SessionReducer(state = initialState.sessions, action) {
-  // let newState;
+  let newState;
   switch (action.type) {
     case LOAD_SESSIONS:
-    debugger;
-      return action.data.sessions.map(d => d.title);
+      newState = objectAssign({}, state, action.data);
+      return newState;
 
     // case SAVE_FUEL_SAVINGS:
     //   // For this example, just simulating a save by changing date modified.
