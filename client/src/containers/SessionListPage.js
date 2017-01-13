@@ -10,7 +10,7 @@ export const SessionListPage = (props) => {
 };
 
 SessionListPage.propTypes = {
-  sessions: PropTypes.array.isRequired
+  sessions: PropTypes.object.isRequired
 };
 
 function mapStateToProps(state) {

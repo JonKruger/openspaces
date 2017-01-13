@@ -8,8 +8,6 @@ class App extends React.Component {
   render() {
     return (
       <div>
-        heyyyyyy
-        <br/>
         {this.props.children}
       </div>
     );
