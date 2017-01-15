@@ -17,3 +17,7 @@ export function loadSessionData() {
 	    )});
   };
 }
+
+export function editSession(session) {
+  return (dispatch) => dispatch({type: types.EDIT_SESSION, session});
+}

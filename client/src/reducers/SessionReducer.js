@@ -1,4 +1,4 @@
-import {LOAD_SESSIONS} from '../constants/ActionTypes';
+import {LOAD_SESSIONS, EDIT_SESSION} from '../constants/ActionTypes';
 import objectAssign from 'object-assign';
 import initialState from './InitialState';
 
@@ -12,6 +12,11 @@ export default function SessionReducer(state = initialState.sessions, action) {
   switch (action.type) {
     case LOAD_SESSIONS:
       newState = objectAssign({}, state, action.data);
+      return newState;
+
+    case EDIT_SESSION:
+    debugger;
+      newState = objectAssign({}, state, {sessionBeginEdited: action.session});
       return newState;
 
     // case SAVE_FUEL_SAVINGS:

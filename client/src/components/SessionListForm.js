@@ -1,4 +1,5 @@
 import React, {PropTypes} from 'react';
+import {Link} from 'react-router';
 
 class SessionListForm extends React.Component {
   constructor(props, context) {
@@ -6,16 +7,7 @@ class SessionListForm extends React.Component {
 
     // this.save = this.save.bind(this);
     // this.onTimeframeChange = this.onTimeframeChange.bind(this);
-    // this.fuelSavingsKeypress = this.fuelSavingsKeypress.bind(this);
-  }
-
-  renderSessions(sessions) {
-    if (!sessions)
-      return "";
-
-    return sessions.map((s, i) => (
-      <div key={i}>{s}</div>
-    ));   
+    this.editSession = this.editSession.bind(this);
   }
 
   renderTableHeader(time_slots, prev_time_slots, next_time_slots, show_past_sessions, current_time_slot) {
@@ -57,6 +49,18 @@ class SessionListForm extends React.Component {
     return true;
   }
 
+  existingSessionTitleLink(sessions, timeSlotId, meetingSpaceId) {
+    const session = this.existingSession(sessions, timeSlotId, meetingSpaceId);
+    return (<a href="#" onClick={this.editSession(session)}>{session.title}</a>);
+  }
+
+  editSession(session) {
+    return () => {
+    debugger;
+    this.props.editSession(session);
+    };
+  }
+
   render() {
     const {sessions, time_slots, meeting_spaces, prev_time_slots, next_time_slots, current_time_slot} = this.props.sessions;
     if (!sessions)
@@ -86,7 +90,7 @@ class SessionListForm extends React.Component {
               <td key={tsIndex} className={(this.existingSession(sessions,ts.id,ms.id) ? 'taken' : 'available') + " " + (ts.id == current_time_slot.id ? 'current' : 'not-current')}>
                 {this.existingSession(sessions,ts.id,ms.id) ? (
                   <div>
-                    <div className="title">{this.existingSession(sessions,ts.id,ms.id).title}</div>
+                    <div className="title">{this.existingSessionTitleLink(sessions,ts.id,ms.id)}</div>
                     <div className="owner">{this.existingSession(sessions,ts.id,ms.id).owner}</div>
                     <div className="inline-meeting-space">Meeting space {ms.name}</div>
                   </div>
@@ -120,7 +124,8 @@ class SessionListForm extends React.Component {
 }
 
 SessionListForm.propTypes = {
-  sessions: PropTypes.object
+  sessions: PropTypes.object,
+  editSession: PropTypes.func.isRequired
 };
 
 export default SessionListForm;
