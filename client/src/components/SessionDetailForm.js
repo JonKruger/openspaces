@@ -9,10 +9,9 @@ class SessionDetailForm extends React.Component {
   }
 
   render() {
-      debugger;
     const session = this.props.session;
     if (!session)
-      return null;
+      return <div>edit page</div>;
 
     return (<div>{session.title}</div>);
   }

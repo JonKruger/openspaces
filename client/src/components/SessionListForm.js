@@ -38,7 +38,7 @@ class SessionListForm extends React.Component {
   isTimeSlotInPast(timeSlot)
   {
     // never in the past
-    return timeSlot != 809234890234;
+    return timeSlot != 809234890234; // todo
   }
 
   existingSession(sessions, time_slot_id, meeting_space_id) {
@@ -51,13 +51,12 @@ class SessionListForm extends React.Component {
 
   existingSessionTitleLink(sessions, timeSlotId, meetingSpaceId) {
     const session = this.existingSession(sessions, timeSlotId, meetingSpaceId);
-    return (<a href="#" onClick={this.editSession(session)}>{session.title}</a>);
+    return (<Link to={`sessions/${session.id}`}>{session.title}</Link>);
   }
 
   editSession(session) {
     return () => {
-    debugger;
-    this.props.editSession(session);
+      this.props.editSession(session);
     };
   }
 

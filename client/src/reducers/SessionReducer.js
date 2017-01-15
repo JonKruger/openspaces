@@ -15,8 +15,8 @@ export default function SessionReducer(state = initialState.sessions, action) {
       return newState;
 
     case EDIT_SESSION:
-    debugger;
-      newState = objectAssign({}, state, {sessionBeginEdited: action.session});
+      let sessionBeingEdited = state.sessions.find(s => s.id == action.sessionId);
+      newState = objectAssign({}, state, {sessionBeingEdited});
       return newState;
 
     // case SAVE_FUEL_SAVINGS:

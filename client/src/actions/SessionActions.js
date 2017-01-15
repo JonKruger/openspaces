@@ -18,6 +18,6 @@ export function loadSessionData() {
   };
 }
 
-export function editSession(session) {
-  return (dispatch) => dispatch({type: types.EDIT_SESSION, session});
+export function editSession(sessionId) {
+  return (dispatch) => dispatch({type: types.EDIT_SESSION, sessionId});
 }
