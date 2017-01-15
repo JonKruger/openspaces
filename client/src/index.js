@@ -16,7 +16,7 @@ fetch("http://localhost:3000/sessions", {
 .then(response => { return response.json(); })
 .then(data => {
 
-  const store = configureStore({ sessions: data}); 
+  const store = configureStore({ sessions: data }); 
 
   // Create an enhanced history that syncs navigation events with the store
   const history = syncHistoryWithStore(browserHistory, store);
