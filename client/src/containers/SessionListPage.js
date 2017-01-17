@@ -4,12 +4,25 @@ import {bindActionCreators} from 'redux';
 import * as actions from '../actions/SessionActions';
 import SessionListForm from '../components/SessionListForm';
 
-export const SessionListPage = (props) => {
-  return (
-    <SessionListForm 
-      sessions={props.sessions}
-      editSession={props.actions.editSession}/>
-  );
+class SessionListPage extends React.Component {
+  constructor(props, context) {
+    super(props, context);
+
+    // this.save = this.save.bind(this);
+  }
+
+  componentWillMount() {
+    this.props.actions.viewSessionList();
+  }
+
+  render() {
+    return (
+      <SessionListForm 
+        sessions={this.props.sessions}
+        editSession={this.props.actions.editSession}/>
+    );
+  }
+
 };
 
 SessionListPage.propTypes = {

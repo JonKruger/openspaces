@@ -1,6 +1,7 @@
-import {LOAD_SESSIONS, EDIT_SESSION} from '../constants/ActionTypes';
+import * as types from '../constants/ActionTypes';
 import objectAssign from 'object-assign';
 import initialState from './InitialState';
+import sessionService from '../services/SessionService';
 
 // IMPORTANT: Note that with Redux, state should NEVER be changed.
 // State is considered immutable. Instead,
@@ -10,13 +11,18 @@ import initialState from './InitialState';
 export default function SessionReducer(state = initialState.sessions, action) {
   let newState;
   switch (action.type) {
-    case LOAD_SESSIONS:
-      return state;
 
-    case EDIT_SESSION:
+    case types.EDIT_SESSION:
       let sessionBeingEdited = state.sessions.find(s => s.id == action.sessionId);
       newState = objectAssign({}, state, {sessionBeingEdited});
       return newState;
+
+    case types.LOAD_SESSIONS:
+      newState = objectAssign({}, state, action.data);
+      return newState;      
+
+    case types.VIEW_SESSION_LIST:
+      return state;
 
     // case SAVE_FUEL_SAVINGS:
     //   // For this example, just simulating a save by changing date modified.

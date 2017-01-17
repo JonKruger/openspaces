@@ -9,21 +9,17 @@ import configureStore from './store/configureStore';
 require('./favicon.ico'); // Tell webpack to load favicon.ico
 import './styles/styles.scss'; // Yep, that's right. You can import SASS/CSS files too! Webpack will run the associated loader and plug this into the page.
 import { syncHistoryWithStore } from 'react-router-redux';
-import sessionService from './services/SessionService';
-debugger;
-sessionService.loadSessionListData()
-  .then(data => {
+import {loadSessionListData} from './actions/SessionActions';
 
-    const store = configureStore({ sessions: data });
+const store = configureStore();
 
-    // Create an enhanced history that syncs navigation events with the store
-    const history = syncHistoryWithStore(browserHistory, store);
+store.dispatch(loadSessionListData());
 
-    render(
-      <Provider store={store}>
-        <Router history={history} routes={routes} />
-      </Provider>, document.getElementById('app')
-    );
+// Create an enhanced history that syncs navigation events with the store
+const history = syncHistoryWithStore(browserHistory, store);
 
-  });
-
+render(
+  <Provider store={store}>
+    <Router history={history} routes={routes} />
+  </Provider>, document.getElementById('app')
+);

@@ -1,23 +1,24 @@
 import * as types from '../constants/ActionTypes';
+import sessionService from '../services/SessionService';
 
-// example of a thunk using the redux-thunk middleware
-export function loadSessionData() {
-  return function (dispatch) {
-    // thunks allow for pre-processing actions, calling apis, and dispatching multiple actions
-    return fetch("http://localhost:3000/sessions", {
-        method: 'get'
-      })
-    .then(response => { return response.json(); })
-    .then(data => {
-      	dispatch(
-	      {
-	      	type: types.LOAD_SESSIONS,
-	      	data
-	    	}
-	    )});
+export function viewSessionList() {
+  return (dispatch) => dispatch({ type: types.VIEW_SESSION_LIST });
+}
+
+export function loadSessionListData() {
+  return (dispatch) => {
+    sessionService.loadSessionListData()
+      .then(data => {
+        dispatch(
+          {
+            type: types.LOAD_SESSIONS,
+            data
+          }
+        );
+      });
   };
 }
 
 export function editSession(sessionId) {
-  return (dispatch) => dispatch({type: types.EDIT_SESSION, sessionId});
+  return (dispatch) => dispatch({ type: types.EDIT_SESSION, sessionId });
 }
