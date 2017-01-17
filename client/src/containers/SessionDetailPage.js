@@ -8,8 +8,6 @@ class SessionDetailPage extends React.Component
 {
   constructor(props, context) {
     super(props, context);
-
-    // this.save = this.save.bind(this);
   }
 
   componentWillMount() {
@@ -19,10 +17,13 @@ class SessionDetailPage extends React.Component
   render() {
     return (
       <SessionDetailForm 
-        session={this.props.session}/>
+        session={this.props.session}
+        saveSession={this.props.actions.saveSession}
+        editSessionDataChanged={this.props.actions.editSessionDataChanged}
+        viewSessionList={this.props.actions.viewSessionList} />
     );
   }
- };
+}
  
 SessionDetailPage.propTypes = {
   session: PropTypes.object,

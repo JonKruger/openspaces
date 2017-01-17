@@ -1,24 +1,58 @@
-import React, {PropTypes} from 'react';
-import {Link} from 'react-router';
+import React, { PropTypes } from 'react';
 
 class SessionDetailForm extends React.Component {
   constructor(props, context) {
     super(props, context);
 
-    // this.save = this.save.bind(this);
+    this.onFieldChange = this.onFieldChange.bind(this);
+    this.save = this.save.bind(this);
+  }
+
+  onFieldChange(e) {
+    this.props.editSessionDataChanged(e.target.name, e.target.value);
+  }
+
+  save()
+  {
+    this.props.saveSession(this.props.session);
   }
 
   render() {
     const session = this.props.session;
     if (!session)
-      return <div>edit page</div>;
+      return (<div></div>);
 
-    return (<div>{session.title}</div>);
+    return (
+    <div>
+      <h1>Edit Session</h1>
+
+      <div className="field">
+        <label htmlFor="session_title">Title</label><br/>
+          <input required="required" maxLength="75" size="20" type="text" value={session.title} name="title" id="session_title" onChange={this.onFieldChange} />
+      </div>
+      <div className="field">
+        <label htmlFor="session_owner">Your Name</label><br/>
+          <input required="required" maxLength="25" size="20" type="text" value={session.owner} name="owner" id="session_owner" onChange={this.onFieldChange} />
+      </div>
+      <div className="field">
+        <label htmlFor="session_twitter_handle">Twitter handle</label><br/>
+          <input size="20" type="text" value={session.twitter_handle} name="twitter_handle" id="session_twitter_handle" onChange={this.onFieldChange} />
+      </div>
+
+      <div className="actions">
+        <input type="submit" name="commit" value="Save" onClick={this.save} />
+      </div>
+      <a data-confirm="Are you sure?" rel="nofollow" data-method="delete" href="/sessions/221">Delete This Session</a> |
+      <a href="/sessions">Back</a>
+    </div>);
   }
 }
 
 SessionDetailForm.propTypes = {
-  session: PropTypes.object
+  session: PropTypes.object,
+  saveSession: PropTypes.func.isRequired,
+  editSessionDataChanged: PropTypes.func.isRequired,
+  viewSessionList: PropTypes.func.isRequired
 };
 
 export default SessionDetailForm;

@@ -13,8 +13,6 @@ import {loadSessionListData} from './actions/SessionActions';
 
 const store = configureStore();
 
-store.dispatch(loadSessionListData());
-
 // Create an enhanced history that syncs navigation events with the store
 const history = syncHistoryWithStore(browserHistory, store);
 
@@ -23,3 +21,5 @@ render(
     <Router history={history} routes={routes} />
   </Provider>, document.getElementById('app')
 );
+
+store.dispatch(loadSessionListData());

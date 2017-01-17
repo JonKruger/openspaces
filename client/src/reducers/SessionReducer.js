@@ -13,13 +13,29 @@ export default function SessionReducer(state = initialState.sessions, action) {
   switch (action.type) {
 
     case types.EDIT_SESSION:
+    {
       let sessionBeingEdited = state.sessions.find(s => s.id == action.sessionId);
       newState = objectAssign({}, state, {sessionBeingEdited});
       return newState;
+    }
+
+    case types.EDIT_SESSION_DATA_CHANGED:
+    {
+      let sessionBeingEdited = objectAssign({}, state.sessionBeingEdited);
+      sessionBeingEdited[action.fieldName] = action.value;
+      newState = objectAssign({}, state, {sessionBeingEdited});
+      return newState;
+    }
 
     case types.LOAD_SESSIONS:
       newState = objectAssign({}, state, action.data);
-      return newState;      
+      return newState;
+
+    case types.SAVE_SESSION:
+      var sessions = state.sessions.filter(s => s.id !== state.sessionBeingEdited.id);
+      sessions.push(state.sessionBeingEdited);
+      newState = objectAssign({}, state, {sessions: sessions, sessionBeingEdited: null})
+      return newState;
 
     case types.VIEW_SESSION_LIST:
       return state;

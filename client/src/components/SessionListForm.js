@@ -5,8 +5,6 @@ class SessionListForm extends React.Component {
   constructor(props, context) {
     super(props, context);
 
-    // this.save = this.save.bind(this);
-    // this.onTimeframeChange = this.onTimeframeChange.bind(this);
     this.editSession = this.editSession.bind(this);
   }
 
