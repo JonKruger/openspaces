@@ -49,12 +49,13 @@ class SessionListForm extends React.Component {
 
   existingSessionTitleLink(sessions, timeSlotId, meetingSpaceId) {
     const session = this.existingSession(sessions, timeSlotId, meetingSpaceId);
-    return (<Link to={`sessions/${session.id}`}>{session.title}</Link>);
+    return (<a href="#" onClick={this.editSession(session.id)}>{session.title}</a>);
   }
 
-  editSession(session) {
-    return () => {
-      this.props.editSession(session);
+  editSession(sessionId) {
+    return (e) => {
+      e.preventDefault();
+      this.props.editSession(sessionId);
     };
   }
 

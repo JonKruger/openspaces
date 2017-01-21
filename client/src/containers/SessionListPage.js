@@ -11,10 +11,6 @@ class SessionListPage extends React.Component {
     // this.save = this.save.bind(this);
   }
 
-  componentWillMount() {
-    this.props.actions.viewSessionList();
-  }
-
   render() {
     return (
       <SessionListForm 

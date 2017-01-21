@@ -1,7 +1,6 @@
 import * as types from '../constants/ActionTypes';
 import objectAssign from 'object-assign';
 import initialState from './InitialState';
-import sessionService from '../services/SessionService';
 
 // IMPORTANT: Note that with Redux, state should NEVER be changed.
 // State is considered immutable. Instead,

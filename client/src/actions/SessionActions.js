@@ -1,8 +1,12 @@
 import * as types from '../constants/ActionTypes';
-import sessionService from '../services/SessionService';
+import * as sessionService from '../services/SessionService';
+import { browserHistory } from 'react-router';
 
 export function viewSessionList() {
-  return (dispatch) => dispatch({ type: types.VIEW_SESSION_LIST });
+  return (dispatch) => {
+    browserHistory.push('/');
+    //dispatch({ type: types.VIEW_SESSION_LIST });
+  }
 }
 
 export function loadSessionListData() {
@@ -20,16 +24,23 @@ export function loadSessionListData() {
 }
 
 export function editSession(sessionId) {
-  return (dispatch) => dispatch({ type: types.EDIT_SESSION, sessionId });
+  return (dispatch) => {
+    dispatch({ type: types.EDIT_SESSION, sessionId });
+    browserHistory.push(`/sessions/${sessionId}`)
+  }
 }
 
 export function editSessionDataChanged(fieldName, value) {
   return (dispatch) => dispatch({ type: types.EDIT_SESSION_DATA_CHANGED, fieldName, value });
 }
 
-export function saveSession() {
+export function saveSession(session) {
   return (dispatch) => {
-    dispatch({ type: types.SAVE_SESSION })
-    .then(() => viewSessionList()(dispatch));
-  };
+    sessionService.saveSession(session)
+      .then(data => {
+        dispatch({ type: types.SAVE_SESSION, data });
+
+        // TODO: this needs to navigate to the list page isntead of just doing this
+        viewSessionList()(dispatch);
+  })};
 }

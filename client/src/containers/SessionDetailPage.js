@@ -10,10 +10,6 @@ class SessionDetailPage extends React.Component
     super(props, context);
   }
 
-  componentWillMount() {
-    this.props.actions.editSession(this.props.params.id);
-  }
-
   render() {
     return (
       <SessionDetailForm 
