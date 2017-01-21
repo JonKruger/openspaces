@@ -41,6 +41,6 @@ export function saveSession(session) {
         dispatch({ type: types.SAVE_SESSION, data });
 
         // TODO: this needs to navigate to the list page isntead of just doing this
-        viewSessionList()(dispatch);
+        //viewSessionList()(dispatch);
   })};
 }

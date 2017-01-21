@@ -8,6 +8,10 @@ export function loadSessionListData() {
 
 export function saveSession(session) {
   // TODO: call the server to save stuff
-  return Promise.resolve(session);
+  return fetch("http://localhost:3000/sessions/save", {
+    method: 'post',
+    body: session
+  })
+    .then(response => { return response.json(); });
 }
 
