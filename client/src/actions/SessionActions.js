@@ -5,7 +5,7 @@ import { browserHistory } from 'react-router';
 export function viewSessionList() {
   return (dispatch) => {
     browserHistory.push('/');
-    //dispatch({ type: types.VIEW_SESSION_LIST });
+    dispatch({ type: types.VIEW_SESSION_LIST });
   }
 }
 
@@ -39,8 +39,6 @@ export function saveSession(session) {
     sessionService.saveSession(session)
       .then(data => {
         dispatch({ type: types.SAVE_SESSION, data });
-
-        // TODO: this needs to navigate to the list page isntead of just doing this
-        //viewSessionList()(dispatch);
+        viewSessionList()(dispatch);
   })};
 }

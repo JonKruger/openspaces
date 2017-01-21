@@ -11,7 +11,7 @@ export function saveSession(session) {
   return fetch("http://localhost:3000/sessions/save", {
     method: 'post',
     headers: new Headers({'Content-Type': 'application/json'}),
-    body: session
+    body: JSON.stringify(session)
   })
     .then(response => { return response.json(); });
 }

@@ -19,7 +19,7 @@ class SessionListPage extends React.Component {
     );
   }
 
-};
+}
 
 SessionListPage.propTypes = {
   sessions: PropTypes.object.isRequired,
