@@ -1,6 +1,7 @@
 import * as types from '../constants/ActionTypes';
 import objectAssign from 'object-assign';
 import initialState from './InitialState';
+import Session from '../models/Session';
 
 // IMPORTANT: Note that with Redux, state should NEVER be changed.
 // State is considered immutable. Instead,
@@ -13,14 +14,9 @@ export default function SessionReducer(state = initialState.sessions, action) {
 
     case types.CREATE_SESSION:
     {
-      let sessionBeingEdited = 
-      {
-        title: '',
-        owner: '',
-        twitter_handle: '',
-        time_slot_id: action.timeSlotId, 
-        meeting_space_id: action.meetingSpaceId
-      }
+      let sessionBeingEdited = new Session();
+      sessionBeingEdited.timeSlotId = action.timeSlotId;
+      sessionBeingEdited.meetingSpaceId = action.meetingSpaceId;
       newState = objectAssign({}, state, {sessionBeingEdited});
       return newState;
     }

@@ -39,8 +39,8 @@ class SessionListForm extends React.Component {
     return timeSlot != 809234890234; // todo
   }
 
-  existingSession(sessions, time_slot_id, meeting_space_id) {
-    return sessions.find(s => s.time_slot_id === time_slot_id && s.meeting_space_id === meeting_space_id);
+  existingSession(sessions, timeSlotId, meetingSpaceId) {
+    return sessions.find(s => s.timeSlotId === timeSlotId && s.meetingSpaceId === meetingSpaceId);
   }
 
   show_create_links() {

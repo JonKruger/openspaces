@@ -34,8 +34,8 @@ class SessionDetailForm extends React.Component {
           <input required="required" maxLength="25" size="20" type="text" value={session.owner} name="owner" id="session_owner" onChange={this.onFieldChange} />
       </div>
       <div className="field">
-        <label htmlFor="session_twitter_handle">Twitter handle</label><br/>
-          <input size="20" type="text" value={session.twitter_handle} name="twitter_handle" id="session_twitter_handle" onChange={this.onFieldChange} />
+        <label htmlFor="session_twitterHandle">Twitter handle</label><br/>
+          <input size="20" type="text" value={session.twitterHandle} name="twitterHandle" id="session_twitterHandle" onChange={this.onFieldChange} />
       </div>
 
       <div className="actions">
