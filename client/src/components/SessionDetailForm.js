@@ -12,8 +12,7 @@ class SessionDetailForm extends React.Component {
     this.props.editSessionDataChanged(e.target.name, e.target.value);
   }
 
-  save()
-  {
+  save() {
     this.props.saveSession(this.props.session);
   }
 

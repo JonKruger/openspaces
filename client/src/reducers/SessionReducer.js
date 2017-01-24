@@ -11,6 +11,20 @@ export default function SessionReducer(state = initialState.sessions, action) {
   let newState;
   switch (action.type) {
 
+    case types.CREATE_SESSION:
+    {
+      let sessionBeingEdited = 
+      {
+        title: '',
+        owner: '',
+        twitter_handle: '',
+        time_slot_id: action.timeSlotId, 
+        meeting_space_id: action.meetingSpaceId
+      }
+      newState = objectAssign({}, state, {sessionBeingEdited});
+      return newState;
+    }
+
     case types.EDIT_SESSION:
     {
       let sessionBeingEdited = state.sessions.find(s => s.id == action.sessionId);

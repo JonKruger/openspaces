@@ -15,6 +15,7 @@ class SessionListPage extends React.Component {
     return (
       <SessionListForm 
         sessions={this.props.sessions}
+        createSession={this.props.actions.createSession}
         editSession={this.props.actions.editSession}/>
     );
   }

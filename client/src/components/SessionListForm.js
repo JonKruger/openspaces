@@ -4,6 +4,7 @@ class SessionListForm extends React.Component {
   constructor(props, context) {
     super(props, context);
 
+    this.createSession = this.createSession.bind(this);
     this.editSession = this.editSession.bind(this);
   }
 
@@ -51,6 +52,13 @@ class SessionListForm extends React.Component {
     return (<a href="#" onClick={this.editSession(session.id)}>{session.title}</a>);
   }
 
+  createSession(timeSlotId, meetingSpaceId) {
+    return (e) => {
+      e.preventDefault();
+      this.props.createSession(timeSlotId, meetingSpaceId);
+    }
+  }
+
   editSession(sessionId) {
     return (e) => {
       e.preventDefault();
@@ -94,7 +102,7 @@ class SessionListForm extends React.Component {
                 ) : (
                   <div>
                     {this.show_create_links() && 
-                      <div className="create-link"><a href={"/sessions/new?time_slot_id=" + ts.id + "&meeting_space_id=" + ms.id}>Create</a></div>
+                      <div className="create-link"><a href="#" onClick={this.createSession(ts.id, ms.id)}>Create</a></div>
                     }
                     <div className="inline-meeting-space">Meeting space {ms.name}</div>
                   </div>

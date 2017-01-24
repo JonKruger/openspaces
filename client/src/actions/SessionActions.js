@@ -23,6 +23,13 @@ export function loadSessionListData() {
   };
 }
 
+export function createSession(timeSlotId, meetingSpaceId) {
+  return (dispatch) => {
+    dispatch({ type: types.CREATE_SESSION, timeSlotId, meetingSpaceId });
+    browserHistory.push(`/sessions/new?time_slot_id=${timeSlotId}&meeting_space_id=${meetingSpaceId}`);
+  }
+}
+
 export function editSession(sessionId) {
   return (dispatch) => {
     dispatch({ type: types.EDIT_SESSION, sessionId });
