@@ -4,6 +4,12 @@ Rails.application.routes.draw do
   resources :sessions
 
   root 'sessions#index'
+
+  get 'api/sessions/:id' => 'sessions_api#edit', :format => 'json'
+  get 'api/sessions' => 'sessions_api#index', :format => 'json'
+  post 'api/sessions/save' => 'sessions_api#save', :format => 'json'
+
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

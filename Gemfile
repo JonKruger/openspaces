@@ -48,3 +48,4 @@ end
 
 gem 'config'
 gem 'rails_12factor'
+gem 'rack-cors'
