@@ -4,7 +4,7 @@ class SessionsController < ApplicationController
   # GET /sessions
   # GET /sessions.json
   def index
-    @sessions = Session.all
+    @sessions = Session.enabled
     @time_slots = TimeSlot.select { |ts| ts.enabled }.sort { |x,y| x.start_time <=> y.start_time }.to_a
     @meeting_spaces = MeetingSpace.all.order :name
 

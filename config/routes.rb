@@ -7,6 +7,7 @@ Rails.application.routes.draw do
 
   get 'api/sessions/:id' => 'sessions_api#edit', :format => 'json'
   get 'api/sessions' => 'sessions_api#index', :format => 'json'
+  post 'api/sessions' => 'sessions_api#index', :format => 'json'
   post 'api/sessions/save' => 'sessions_api#save', :format => 'json'
 
 

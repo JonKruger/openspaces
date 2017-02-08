@@ -6,7 +6,8 @@ class SessionsApiController < ApplicationController
   # GET /sessions
   # GET /sessions.json
   def index
-    @sessions = Session.all
+    since = params[:since] || Date.parse("January 1, 1970")
+    @sessions = Session.enabled.select { |s| s.updated_at >= since }
     @time_slots = TimeSlot.select { |ts| ts.enabled }.sort { |x,y| x.start_time <=> y.start_time }.to_a
     @meeting_spaces = MeetingSpace.all.order :name
 
@@ -76,7 +77,7 @@ class SessionsApiController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def session_params
       puts ">>>> I got #{params}"
-      p = params.permit(:id, :title, :owner, :twitter_handle, :time_slot_id, :meeting_space_id)
+      p = params.permit(:id, :title, :owner, :twitter_handle, :time_slot_id, :meeting_space_id, :since)
       p[:twitter_handle] = p[:twitter_handle].gsub '@','' if p[:twitter_handle]
       p
     end
