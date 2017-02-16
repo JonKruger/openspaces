@@ -8,23 +8,28 @@ class SessionsApiController < ApplicationController
   def index
     since = params[:since] || Date.parse("January 1, 1970")
     @sessions = Session.enabled.select { |s| s.updated_at >= since }
-    @time_slots = TimeSlot.select { |ts| ts.enabled }.sort { |x,y| x.start_time <=> y.start_time }.to_a
-    @meeting_spaces = MeetingSpace.all.order :name
+    
+    # only bring back all of the supporting data if this is the initial load
+    unless params[:since] 
+      @time_slots = TimeSlot.select { |ts| ts.enabled }.sort { |x,y| x.start_time <=> y.start_time }.to_a
+      @meeting_spaces = MeetingSpace.all.order :name
 
-    if params[:time_slot_id]
-      @current_time_slot = @time_slots.select {|ts|ts.id == params[:time_slot_id].to_i}.first
-    else
-      sorted_time_slots = @time_slots.sort {|x,y| x.start_time <=> y.start_time}
-      @current_time_slot = sorted_time_slots.select {|ts| ts.end_time >= Time.now}.first
-      @current_time_slot = sorted_time_slots.first unless @current_time_slot
+      if params[:time_slot_id]
+        @current_time_slot = @time_slots.select {|ts|ts.id == params[:time_slot_id].to_i}.first
+      else
+        sorted_time_slots = @time_slots.sort {|x,y| x.start_time <=> y.start_time}
+        @current_time_slot = sorted_time_slots.select {|ts| ts.end_time >= Time.now}.first
+        @current_time_slot = sorted_time_slots.first unless @current_time_slot
+      end
+
+      @prev_time_slots = {}
+      @next_time_slots = {}
+      for i in 0..@time_slots.length-1
+        @prev_time_slots[@time_slots[i].id] = (@time_slots[i-1].id if i > 0)
+        @next_time_slots[@time_slots[i].id] = (@time_slots[i+1].id if i < (@time_slots.length - 1))
+      end
     end
 
-    @prev_time_slots = {}
-    @next_time_slots = {}
-    for i in 0..@time_slots.length-1
-      @prev_time_slots[@time_slots[i].id] = (@time_slots[i-1].id if i > 0)
-      @next_time_slots[@time_slots[i].id] = (@time_slots[i+1].id if i < (@time_slots.length - 1))
-    end
     result = {
       :sessions => @sessions.map { |s| s.as_json.merge({:twitter_url => s.twitter_url}) },
       :time_slots => @time_slots,
