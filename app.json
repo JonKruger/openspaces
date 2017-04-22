@@ -1,8 +1,8 @@
 {
-  "name": "CodeMash open spaces",
-  "description": "CodeMash open spaces",
+  "name": "Stir Trek open spaces",
+  "description": "Stir Trek open spaces",
   "repository": "https://github.com/jonkruger/openspaces",
-  "keywords": ["codemash", "open-spaces" ],
+  "keywords": ["stirtrek", "open-spaces" ],
   "addons": [ "heroku-postgresql" ]
 
 }
