@@ -24,6 +24,9 @@ class SessionsController < ApplicationController
     end
   end
 
+  def about
+  end
+
   # GET /sessions/1
   # GET /sessions/1.json
   def show
