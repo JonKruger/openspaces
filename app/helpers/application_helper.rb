@@ -47,7 +47,7 @@ module ApplicationHelper
   end
 
   def show_past_sessions?
-    (params['show-past-sessions'] && params['show-past-sessions'].to_i == 0) ? false : true
+    true # (params['show-past-sessions'] && params['show-past-sessions'].to_i == 0) ? false : true
   end
 
   def show_create_links?
