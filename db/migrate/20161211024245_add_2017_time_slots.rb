@@ -1,4 +1,4 @@
-class Add2017TimeSlots < ActiveRecord::Migration
+class Add2017TimeSlots < ActiveRecord::Migration[6.0]
   def change
   	execute "update time_slots set enabled = false where start_time < '2017-1-1'"
 

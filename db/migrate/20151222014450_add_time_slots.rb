@@ -1,4 +1,4 @@
-class AddTimeSlots < ActiveRecord::Migration
+class AddTimeSlots < ActiveRecord::Migration[6.0]
   def change
     TimeSlot.create :start_time => '2016-1-7 8:00am', :end_time => '2016-1-7 9:00am'
     TimeSlot.create :start_time => '2016-1-7 9:15am', :end_time => '2016-1-7 10:15am'

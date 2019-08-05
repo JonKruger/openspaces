@@ -1,4 +1,4 @@
-class CreateMeetingSpaces < ActiveRecord::Migration
+class CreateMeetingSpaces < ActiveRecord::Migration[6.0]
   def change
     create_table :meeting_spaces do |t|
       t.string :name

@@ -57,3 +57,7 @@ gem 'rack-cors'
 gem 'config'
 gem 'rails_12factor'
 gem 'pg'
+# Use jquery as the JavaScript library
+gem 'jquery-rails'
+# Use CoffeeScript for .coffee assets and views
+gem 'coffee-rails'

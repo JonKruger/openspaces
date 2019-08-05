@@ -1,4 +1,4 @@
-class SessionHistory < ActiveRecord::Migration
+class SessionHistory < ActiveRecord::Migration[6.0]
   def change
     create_table :session_history do |t|
       t.references :session, required: true

@@ -1,4 +1,4 @@
-class FixTimeZonesInTimeSlots < ActiveRecord::Migration
+class FixTimeZonesInTimeSlots < ActiveRecord::Migration[6.0]
   def change
     TimeSlot.all.each do |ts|
       ts.start_time = ts.start_time.in_time_zone('Eastern Time (US & Canada)') + 5.hours

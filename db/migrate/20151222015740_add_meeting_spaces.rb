@@ -1,4 +1,4 @@
-class AddMeetingSpaces < ActiveRecord::Migration
+class AddMeetingSpaces < ActiveRecord::Migration[6.0]
   def change
     MeetingSpace.create :name => '1'
     MeetingSpace.create :name => '2'

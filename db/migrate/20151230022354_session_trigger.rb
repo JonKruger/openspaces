@@ -1,4 +1,4 @@
-class SessionTrigger < ActiveRecord::Migration
+class SessionTrigger < ActiveRecord::Migration[6.0]
   def change
     execute <<-SQL
     CREATE OR REPLACE FUNCTION process_session_history() RETURNS TRIGGER AS $session_history$
